@@ -79,12 +79,12 @@ simple example:
   # catch
   my $e = $@;
   if (MyException->caught($e)) {
-      say $@->package; # show 'main'
-      say $@->file; # show 'foo.pl'
-      say $@->line; # show '7'
-      say $@->dump; # dump self
-      say $@; # show 'oops! at package:main file:foo.pl line:7'
-      $@e->rethrow; # rethrow MyException exception.
+      say $e->package; # show 'main'
+      say $e->file; # show 'foo.pl'
+      say $e->line; # show '7'
+      say $e->dump; # dump self
+      say $e; # show 'oops! at package:main file:foo.pl line:7'
+      $e->rethrow; # rethrow MyException exception.
   }
 
 can you accessor for exception class:
@@ -117,9 +117,9 @@ can you accessor for exception class:
   # catch
   my $e = $@;
   if (MyException->caught($e)) {
-      say $@->status_code; # show '500';
-      say $@->dfv->{missing}; # show 'name field is missing.'
-      die $@; # show 'oops at package:main file:bar.pl line:17'
+      say $e->status_code; # show '500';
+      say $e->dfv->{missing}; # show 'name field is missing.'
+      say $e; # show 'oops at package:main file:bar.pl line:17'
   }
 
 can you catche nested class:
