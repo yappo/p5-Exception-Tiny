@@ -46,7 +46,7 @@ sub dump {
 sub caught {
     my $class = shift;
     return if ref $class;
-    return unless $@ && Scalar::Util::blessed($@) && $@->isa($class);
+    return unless Scalar::Util::blessed($@) && $@->isa($class);
     $@;
 }
 
