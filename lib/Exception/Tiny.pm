@@ -155,15 +155,15 @@ So anyone can understand the implementation It.
 
 throw the exception.
 
-=head2 rethrow
-
-re-throw the exception object.
-
 =head2 caught($e)
 
 It returns an exception object if the argument is of the current class, or a subclass of that class. it simply returns $e.
 
 =head1 INSTANCE METHODS
+
+=head2 rethrow
+
+re-throw the exception object.
 
 =head2 message
 
