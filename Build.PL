@@ -12,6 +12,7 @@ my $build = Module::Build->new(
     },
     configure_requires   => { 'Module::Build' => '0.38' },
     requires             => {
+        perl                    => '5.008005',
         'Data::Dumper'          => '0',
         'Scalar::Util'          => '0',
         'parent'                => '0',
