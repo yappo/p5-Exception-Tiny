@@ -151,7 +151,7 @@ So anyone can understand the implementation It.
 
 =head1 CLASS METHODS
 
-=head2 throw
+=head2 throw( ... )
 
 throw the exception.
 
