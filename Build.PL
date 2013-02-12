@@ -12,10 +12,10 @@ my $build = Module::Build->new(
     },
     configure_requires   => { 'Module::Build' => '0.38' },
     requires             => {
-        perl => '5.008005',
-        # 'Exporter'                      => '0',
-        'parent'                        => '0',
-        # 'Plack'                         => '0.9949',
+        'Data::Dumper'          => '0',
+        'Scalar::Util'          => '0',
+        'parent'                => '0',
+        'Class::Accessor::Lite' => '0.05',
     },
 
     no_index    => { 'directory' => [ 'inc' ] },
@@ -26,7 +26,7 @@ my $build = Module::Build->new(
 
     test_files => (-d '.git' || $ENV{RELEASE_TESTING}) ? 't/ xt/' : 't/',
     recursive_test_files => 1,
-   
+
     create_readme  => 1,
     create_license => 1,
 );
