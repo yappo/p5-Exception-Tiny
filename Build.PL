@@ -30,5 +30,12 @@ my $build = Module::Build->new(
 
     create_readme  => 1,
     create_license => 1,
+
+    meta_merge => {
+        resources => {
+            repository => 'git://github.com/yappo/p5-Exception-Tiny.git',
+            homepage   => 'https://github.com/yappo/p5-Exception-Tiny',
+        },
+    },
 );
 $build->create_build_script();
