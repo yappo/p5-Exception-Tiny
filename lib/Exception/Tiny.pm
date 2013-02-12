@@ -44,10 +44,10 @@ sub dump {
 }
 
 sub caught {
-    my $class = shift;
+    my($class, $e) = @_;
     return if ref $class;
-    return unless Scalar::Util::blessed($@) && $@->isa($class);
-    $@;
+    return unless Scalar::Util::blessed($e) && $e->isa($class);
+    $e;
 }
 
 1;
@@ -72,7 +72,8 @@ simple example:
   eval { MyException->throw( 'oops!' ) };
   
   # catch
-  if (MyException->caught) {
+  my $e = $@;
+  if (MyException->caught($e)) {
       say $@->package; # show 'main'
       say $@->file; # show 'foo.pl'
       say $@->line; # show '7'
@@ -108,7 +109,8 @@ can you accessor for exception class:
   };
   
   # catch
-  if (MyException->caught) {
+  my $e = $@;
+  if (MyException->caught($e)) {
       say $@->status_code; # show '500';
       say $@->dfv->{missing}; # show 'name field is missing.'
       die $@; # show 'oops at package:main file:bar.pl line:17'
@@ -126,7 +128,8 @@ can you catche nested class:
   
   eval { MyException::Validator->throw }
   
-  say 'BaseException' if BaseException->caught; # show 'BaseException'
+  my $e = $@;
+  say 'BaseException' if BaseException->caught($e); # show 'BaseException'
 
 =head1 DESCRIPTION
 
@@ -140,9 +143,9 @@ So anyone can understand the implementation It.
 
 throw the exception.
 
-=head2 caught
+=head2 caught($e)
 
-It returns an exception object if the last thrown exception is of the given class, or a subclass of that class. If it is not given any arguments, it simply returns $@.
+It returns an exception object if the argument is of the current class, or a subclass of that class. it simply returns $e.
 
 =head1 INSTANCE METHODS
 
