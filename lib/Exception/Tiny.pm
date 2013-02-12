@@ -183,6 +183,41 @@ You can Implementation overridden.
 It to dump the contents of the instance.
 You can Implementation overridden.
 
+=head1 HACKING IDEA
+
+If you want L<Exception::Class::Base> style object, you can write like code of the under.
+
+  package HackException;
+  use parent 'Exception::Tiny';
+  use Class::Accessor::Lite (
+      ro => [qw/ time pid uid euid gid egid /],
+  );
+  
+  sub new {
+      my($class, %args) = @_;
+      %args = (
+          %args,
+          time => CORE::time,
+          pid  => $$,
+          uid  => $<,
+          euid => $>,
+          gid  => $(,
+          egid => $),
+      );
+      $class->SUPER::new(%args);
+  }
+  
+  eval {
+      HackException->throw;
+  };
+  my $e = $@;
+  say $e->time;
+  say $e->pid;
+  say $e->uid;
+  say $e->euid;
+  say $e->gid;
+  say $e->egid;
+
 =head1 AUTHOR
 
 Kazuhiro Osawa E<lt>yappo {@} shibuya {dot} plE<gt>
