@@ -33,6 +33,11 @@ sub throw {
     die $class->new(%args);
 }
 
+sub rethrow {
+    my $self = shift;
+    die $self;
+}
+
 sub as_string {
     my $self = shift;
     sprintf '%s at package:%s file:%s line:%s', $self->message, $self->package, $self->file, $self->line;
@@ -78,7 +83,8 @@ simple example:
       say $@->file; # show 'foo.pl'
       say $@->line; # show '7'
       say $@->dump; # dump self
-      die $@; # show 'oops! at package:main file:foo.pl line:7'
+      say $@; # show 'oops! at package:main file:foo.pl line:7'
+      $@e->rethrow; # rethrow MyException exception.
   }
 
 can you accessor for exception class:
@@ -142,6 +148,10 @@ So anyone can understand the implementation It.
 =head2 throw
 
 throw the exception.
+
+=head2 rethrow
+
+re-throw the exception object.
 
 =head2 caught($e)
 
