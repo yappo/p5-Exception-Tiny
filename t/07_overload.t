@@ -9,8 +9,9 @@ eval {
     MyException1->throw;
 };
 
-$ok++  if MyException1->caught;
-$ok++  if MyException1->caught->package eq 'main';
+my $e = $@;
+$ok++  if MyException1->caught($e);
+$ok++  if MyException1->caught($e)->package eq 'main';
 
 is $ok, 2;
 
