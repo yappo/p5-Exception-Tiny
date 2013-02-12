@@ -74,16 +74,19 @@ simple example:
   package main;
   
   # try
-  eval { MyException->throw( 'oops!' ) };
+  eval {
+      MyException->throw( 'oops!' ); # same MyException->throw( message => 'oops!' );
+  };
   
   # catch
   if (my $e = $@) {
       if (MyException->caught($e)) {
+          say $e->message; # show 'oops!'
           say $e->package; # show 'main'
           say $e->file; # show 'foo.pl'
-          say $e->line; # show '7'
+          say $e->line; # show '8'
           say $e->dump; # dump self
-          say $e; # show 'oops! at package:main file:foo.pl line:7'
+          say $e; # show 'oops! at package:main file:foo.pl line:8'
           $e->rethrow; # rethrow MyException exception.
       }
   }
@@ -118,6 +121,7 @@ can you accessor for exception class:
   # catch
   if (my $e = $@) {
       if (MyException->caught($e)) {
+          say $e->message; # show 'oops';
           say $e->status_code; # show '500';
           say $e->dfv->{missing}; # show 'name field is missing.'
           say $e; # show 'oops at package:main file:bar.pl line:17'
@@ -160,6 +164,10 @@ re-throw the exception object.
 It returns an exception object if the argument is of the current class, or a subclass of that class. it simply returns $e.
 
 =head1 INSTANCE METHODS
+
+=head2 message
+
+It return the exception message.
 
 =head2 package
 
