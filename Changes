@@ -1,4 +1,7 @@
 Revision history for Perl extension Exception::Tiny
 
+0.1.0 2013-02-13T03:08:08+09:00
+    - fixed pod bug
+
 0.0.1 2013-02-13T02:56:14+09:00
     - original version
