@@ -27,6 +27,7 @@ sub throw {
     } else {
         %args = @_;
     }
+    $args{message} = $class unless defined $args{message} && $args{message} ne '';
 
     ($args{package}, $args{file}, $args{line}) = caller(0);
     $args{subroutine} = (caller(1))[3];
@@ -147,7 +148,7 @@ can you catche nested class:
   eval { MyException::Validator->throw }
   
   my $e = $@;
-  say 'BaseException' if BaseException->caught($e); # show 'BaseException'
+  say $e if BaseException->caught($e); # show 'MyException::Validator from main#(eval) at bar.pl line 9.'
 
 =head1 DESCRIPTION
 
@@ -174,6 +175,7 @@ re-throw the exception object.
 =head2 message
 
 It return the exception message.
+default is exception class name.
 
 =head2 package
 

@@ -18,6 +18,7 @@ t/07_overload.t
 t/08_rethrow.t
 t/09_hack_idea.t
 t/10_subroutine.t
+t/11_default_message.pm
 t/lib/MyException.pm
 t/lib/MyExceptions.pm
 xt/01_podspell.t
