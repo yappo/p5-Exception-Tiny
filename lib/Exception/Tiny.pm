@@ -92,7 +92,7 @@ simple example:
           say $e->line; # show '9'
           say $e->subroutine; # show 'main:foo'
           say $e->dump; # dump self
-          say $e; # show 'oops! at package:main file:foo.pl line:9'
+          say $e; # show 'oops! from main#foo at foo.pl line 9.'
           $e->rethrow; # rethrow MyException exception.
       }
   }
@@ -130,7 +130,7 @@ can you accessor for exception class:
           say $e->message; # show 'oops';
           say $e->status_code; # show '500';
           say $e->dfv->{missing}; # show 'name field is missing.'
-          say $e; # show 'oops at package:main file:bar.pl line:17'
+          say $e; # show 'oops from main#(eval) at bar.pl line 17.'
       }
   }
 
