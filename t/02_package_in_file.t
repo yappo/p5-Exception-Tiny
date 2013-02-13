@@ -15,6 +15,6 @@ eval {
 };
 
 my $E = $@;
-like "$E", qr/oops from main at .+02_package_in_file\.t line 14./;
+like "$E", qr/oops from main#\(eval\) at .+02_package_in_file\.t line 14./;
 
 done_testing;

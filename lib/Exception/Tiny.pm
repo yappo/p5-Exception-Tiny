@@ -14,7 +14,7 @@ use overload
 
 use Class::Accessor::Lite (
     new => 1,
-    ro  => [qw/ message file line package /]
+    ro  => [qw/ message file line package subroutine /]
 );
 
 
@@ -29,6 +29,7 @@ sub throw {
     }
 
     ($args{package}, $args{file}, $args{line}) = caller(0);
+    $args{subroutine} = (caller(1))[3];
 
     die $class->new(%args);
 }
@@ -40,7 +41,9 @@ sub rethrow {
 
 sub as_string {
     my $self = shift;
-    sprintf '%s from %s at %s line %s.', $self->message, $self->package, $self->file, $self->line;
+    my $subroutine = $self->subroutine || '';
+    $subroutine =~ s/^(.+::)//;
+    sprintf '%s from %s#%s at %s line %s.', $self->message, $self->package, $subroutine, $self->file, $self->line;
 }
 
 sub dump {
@@ -74,9 +77,11 @@ simple example:
   package main;
   
   # try
-  eval {
-      MyException->throw( 'oops!' ); # same MyException->throw( message => 'oops!' );
-  };
+  sub foo {
+      eval {
+          MyException->throw( 'oops!' ); # same MyException->throw( message => 'oops!' );
+      };
+  }
   
   # catch
   if (my $e = $@) {
@@ -84,9 +89,10 @@ simple example:
           say $e->message; # show 'oops!'
           say $e->package; # show 'main'
           say $e->file; # show 'foo.pl'
-          say $e->line; # show '8'
+          say $e->line; # show '9'
+          say $e->subroutine; # show 'main:foo'
           say $e->dump; # dump self
-          say $e; # show 'oops! at package:main file:foo.pl line:8'
+          say $e; # show 'oops! at package:main file:foo.pl line:9'
           $e->rethrow; # rethrow MyException exception.
       }
   }
@@ -180,6 +186,10 @@ It return the file name that exception has occurred.
 =head2 line
 
 It return the line number in file that exception has occurred.
+
+=head2 subroutine
+
+It return the subroutine name that exception has occurred.
 
 =head2 as_string
 
