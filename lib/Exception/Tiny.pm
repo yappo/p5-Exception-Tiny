@@ -40,7 +40,7 @@ sub rethrow {
 
 sub as_string {
     my $self = shift;
-    sprintf '%s at package:%s file:%s line:%s', $self->message, $self->package, $self->file, $self->line;
+    sprintf '%s from %s at %s line %s.', $self->message, $self->package, $self->file, $self->line;
 }
 
 sub dump {
