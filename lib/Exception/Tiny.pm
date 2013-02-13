@@ -2,7 +2,7 @@ package Exception::Tiny;
 use strict;
 use warnings;
 use 5.008005;
-our $VERSION = '0.1.0';
+our $VERSION = '0.2.0';
 
 use Data::Dumper ();
 use Scalar::Util ();
