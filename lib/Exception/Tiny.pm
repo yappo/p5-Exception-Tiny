@@ -42,9 +42,7 @@ sub rethrow {
 
 sub as_string {
     my $self = shift;
-    my $subroutine = $self->subroutine || '';
-    $subroutine =~ s/^(.+::)//;
-    sprintf '%s from %s#%s at %s line %s.', $self->message, $self->package, $subroutine, $self->file, $self->line;
+    sprintf '%s at %s line %s.', $self->message, $self->file, $self->line;
 }
 
 sub dump {
@@ -93,7 +91,7 @@ simple example:
           say $e->line; # show '9'
           say $e->subroutine; # show 'main:foo'
           say $e->dump; # dump self
-          say $e; # show 'oops! from main#foo at foo.pl line 9.'
+          say $e; # show 'oops! at foo.pl line 9.'
           $e->rethrow; # rethrow MyException exception.
       }
   }
@@ -131,7 +129,7 @@ can you accessor for exception class:
           say $e->message; # show 'oops';
           say $e->status_code; # show '500';
           say $e->dfv->{missing}; # show 'name field is missing.'
-          say $e; # show 'oops from main#(eval) at bar.pl line 17.'
+          say $e; # show 'oops at bar.pl line 17.'
       }
   }
 
@@ -148,7 +146,7 @@ can you catche nested class:
   eval { MyException::Validator->throw }
   
   my $e = $@;
-  say $e if BaseException->caught($e); # show 'MyException::Validator from main#(eval) at bar.pl line 9.'
+  say $e if BaseException->caught($e); # show 'MyException::Validator at bar.pl line 9.'
 
 =head1 DESCRIPTION
 

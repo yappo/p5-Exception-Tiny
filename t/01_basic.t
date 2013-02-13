@@ -13,7 +13,7 @@ like $E->file, qr/01_basic\.t$/;
 is $E->package, 'main';
 is $E->line, 7;
 is $E->message, 'error!';
-like "$E", qr/error! from main#\(eval\) at .+01_basic\.t line 7./;
+like "$E", qr/error! at .+01_basic\.t line 7./;
 like $E->dump, qr/'t::lib::MyException'/;
 
 done_testing;
