@@ -1,5 +1,8 @@
 Revision history for Perl extension Exception::Tiny
 
+0.2.1 2013-02-18T14:40:27+09:00
+    - use UNIVERSAL::isa
+
 0.2.0 2013-02-13T11:28:30+09:00
     - add subroutine method
     - change as_string format
