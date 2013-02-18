@@ -53,7 +53,7 @@ sub dump {
 sub caught {
     my($class, $e) = @_;
     return if ref $class;
-    return unless Scalar::Util::blessed($e) && $e->isa($class);
+    return unless Scalar::Util::blessed($e) && UNIVERSAL::isa($e, $class);
     $e;
 }
 
