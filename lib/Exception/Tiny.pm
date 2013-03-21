@@ -35,6 +35,16 @@ sub throw {
     die $class->new(%args);
 }
 
+sub throwf {
+    my $class  = shift;
+    my $format = shift;
+
+    my $message = sprintf($format, @_);
+    @_ = ($class, $message);
+
+    goto \&throw;
+}
+
 sub rethrow {
     my $self = shift;
     die $self;
@@ -159,6 +169,10 @@ So anyone can understand the implementation It.
 =head2 throw( ... )
 
 throw the exception.
+
+=head2 throwf($format, @list);
+
+throw the exception. The arguments is treated as printf.
 
 =head2 caught($e)
 
